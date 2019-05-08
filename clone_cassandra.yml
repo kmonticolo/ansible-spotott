@@ -1,0 +1,65 @@
+---
+- name: Clone site on VNware
+  hosts: localhost
+  vars:
+    - linux_password: SeaChange
+  gather_facts: false
+  vars_files:
+    - clonevm/vars/main.yml
+  roles:
+    - { role: clonevm, tags: clonevm, vm: "cassandra" }
+
+  tasks:
+  - name: Wait for SSH to come up
+    wait_for: host="10.48.77.241" port=22 delay=30 timeout=300 state=started
+    delegate_to: localhost
+
+  - name: run ssh-copy-id
+    command: sshpass -p "{{ linux_password }}" /usr/bin/ssh-copy-id -i ~/.ssh/id_rsa.pub root@"{{ item }}"
+    loop:
+      - 10.48.77.241
+
+- name: IP cassandra
+  hosts: cloned_vm
+  gather_facts: false
+  tasks:
+
+  - name: Set IP for cassandra
+    command: /root/ipconfigure.sh
+    register: ip_for_cassandra
+    run_once: true
+  - debug:
+      msg: "{{ ip_for_cassandra.stdout }}"
+
+  - name: set IP cassandra fact
+    set_fact: ip_cassandra="{{ ip_for_cassandra.stdout }}"
+
+  - name: Install libselinux-python
+    yum:
+      name: libselinux-python
+      state: present
+
+# usun wpisy z rc.local (wymaga libselinux-python)
+  - name: Remove line in rc.local
+    lineinfile:
+      path: /etc/rc.local
+      regexp: "{{ item }}"
+      state: absent
+    loop:
+    - '^sed'
+    - '^sh'
+    - '^service network restart'
+
+  - name: Remove eth1 entry
+    file:
+      path: /etc/sysconfig/network-scripts/ifcfg-eth1
+      state: absent
+
+  - name: Reboot immediately
+    shell: "sleep 5 && reboot"
+    async: 1
+    poll: 0
+
+  - name: Wait for SSH to come up on new IP
+    wait_for: host="{{ ip_cassandra }}" port=22 delay=30 timeout=300 state=started
+    delegate_to: localhost

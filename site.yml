@@ -1,0 +1,7 @@
+---
+- name: Clone MMC
+  import_playbook: clone_mmc.yml
+- name: Clone cassandra
+  import_playbook: clone_cassandra.yml
+- name: Clone msvinserter
+  import_playbook: clone_msvinserter.yml

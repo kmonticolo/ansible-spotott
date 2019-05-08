@@ -1,0 +1,8 @@
+---
+[local]
+localhost ansible_connection=local
+
+[cloned_vm]
+10.48.77.241
+[cloned_vm:vars]
+ansible_ssh_user=root

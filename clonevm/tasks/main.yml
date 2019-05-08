@@ -1,0 +1,34 @@
+---
+# tasks file for /home/kamil/ansible-spotott/clonevm
+- name: create folder
+  vcenter_folder:
+    hostname: "{{ vcenter_host }}"
+    username: "{{ vcenter_username }}"
+    password: "{{ vcenter_password }}"
+    validate_certs: False
+    datacenter: "{{ vcenter_datacenter }}"
+    folder_name: "{{ project }}"
+    parent_folder: "{{ parent_folder }}"
+    folder_type: vm
+    state: present
+  delegate_to: localhost
+  tags: create
+
+- name: Create VMs from a template
+  vmware_guest:
+    hostname: "{{ vcenter_host }}"
+    username: "{{ vcenter_username }}"
+    password: "{{ vcenter_password }}"
+    annotation: "{{ jiraticket }} {{ project }}"
+    validate_certs: False
+    folder: "{{ parent_folder }}/{{ project }}"
+    name: "{{ item }}01_{{ project }}"
+    template: "centos610_tmpl"
+    datacenter: "{{ vcenter_datacenter }}"
+    state: "{{ vmstate }}"
+    esxi_hostname: "{{ esxi }}"
+  delegate_to: localhost
+  tags: create
+  register: deploy_vm
+  loop:
+    - "{{ vm }}"
