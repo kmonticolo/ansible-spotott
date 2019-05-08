@@ -63,3 +63,11 @@
   - name: Wait for SSH to come up on new IP
     wait_for: host="{{ ip_cassandra }}" port=22 delay=30 timeout=300 state=started
     delegate_to: localhost
+
+  - name: save cassandra IP
+    lineinfile:
+      path: "/tmp/inventory_{{ project }}"
+      line: 'ip_cassandra={{ ip_cassandra }}'
+      state: present
+      create: true
+    delegate_to: localhost

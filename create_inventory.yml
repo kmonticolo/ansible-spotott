@@ -1,0 +1,15 @@
+- name: Create inventory
+  hosts: localhost
+  #vars:
+  #  - "{{ lookup('ini', 'file=/tmp/inventory_{{ project }}') }}"
+  gather_facts: false
+  vars_files:
+    - clonevm/vars/main.yml
+    #- "/tmp/inventory_{{ project }}"
+    #- '/tmp/inventory_{{ project }}'
+  #include_vars:
+  #  file: '/tmp/inventory_{{ project }}'
+
+  roles:
+
+  - { role: create_inventory, tags: create_inventory }
