@@ -1,0 +1,11 @@
+---
+
+# set hostname
+- src: anxs.hostname
+# create users with sudo and pubkeys
+- src: nickjj.user
+# set NTP
+- src: geerlingguy.ntp
+# ansible-ipv6 disable
+- src: juju4.ipv6
+ 
