@@ -5,9 +5,9 @@
   import_playbook: clone_cassandra.yml
 - name: Clone msvinserter
   import_playbook: clone_msvinserter.yml
-- name: create inventory
-  import_playbook: create_inventory.yml
-  tags: inventory
+# - name: create inventory
+#   import_playbook: create_inventory.yml
+#   tags: inventory
 
 - name: Deploy MMC
   hosts: mmc
