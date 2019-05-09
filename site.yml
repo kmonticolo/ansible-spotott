@@ -10,21 +10,11 @@
   hosts: all
   user:
     name: seachange
-    append: no # If C(yes), add the user to the groups specified in C(groups).,If C(no), user will only be added to the groups specified in C(groups), removing them from all other groups.
-    update_password: always # C(always) will update passwords if they differ.  C(on_create) will only set the password for newly created users.
-    create_home: yes # Unless set to C(no), a home directory will be made for the user when the account is created or if the home directory does not exist.,Changed from C(createhome) to C(create_home) in version 2.5.
-    password_lock: # Lock the password (usermod -L, pw lock, usermod -C). BUT implementation differs on different platforms, this option does not always mean the user cannot login via other methods. This option does not disable the user, only lock the password. Do not change the password in the same task. Currently supported on Linux, FreeBSD, DragonFlyBSD, NetBSD, OpenBSD.
-    ssh_key_passphrase: # Set a passphrase for the SSH key.  If no passphrase is provided, the SSH key will default to having no passphrase.
-    groups: [ wheel, seachange ]
-    move_home: no # If set to C(yes) when used with C(home=), attempt to move the user's old home directory to the specified directory if it isn't there already and the old home exists.
-    password: 6$Hzk15seL$kLMMGPrF7o4TD7cYd3iA1siR.fhGl0nSoAiGj8GWbs2ZmUgFGhRzY5xL82NZEe89UR68je7DzX4A91x1qWj0C.
-    ssh_key_bits: default set by ssh-keygen # Optionally specify number of bits in SSH key to create.
-    uid: # Optionally sets the I(UID) of the user.
-    ssh_key_comment: ansible-generated on $HOSTNAME # Optionally define the comment for the SSH key.
+    shell: /bin/bash
     group: seachange
-    state: present # Whether the account should exist or not, taking action if the state is different from what is stated.
-
-
+    groups: wheel
+    password: 6$Hzk15seL$kLMMGPrF7o4TD7cYd3iA1siR.fhGl0nSoAiGj8GWbs2ZmUgFGhRzY5xL82NZEe89UR68je7DzX4A91x1qWj0C.
+    append: yes
 
 
 - name: Deploy MMC
