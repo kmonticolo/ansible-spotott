@@ -8,13 +8,14 @@
 
 - name: Create seachange user
   hosts: all
-  user:
-    name: seachange
-    shell: /bin/bash
-    group: seachange
-    groups: wheel
-    password: 6$Hzk15seL$kLMMGPrF7o4TD7cYd3iA1siR.fhGl0nSoAiGj8GWbs2ZmUgFGhRzY5xL82NZEe89UR68je7DzX4A91x1qWj0C.
-    append: yes
+  tasks:
+    user:
+      name: seachange
+      shell: /bin/bash
+      group: seachange
+      groups: wheel
+      password: 6$Hzk15seL$kLMMGPrF7o4TD7cYd3iA1siR.fhGl0nSoAiGj8GWbs2ZmUgFGhRzY5xL82NZEe89UR68je7DzX4A91x1qWj0C.
+      append: yes
 
 
 - name: Deploy MMC
