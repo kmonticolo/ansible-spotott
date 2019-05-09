@@ -4,13 +4,17 @@
 # add seachange user
 
 # create /seachange/local folder
-- name: create folder
+- name: Create folder
   file:
     path: /seachange/local
     owner: root
     state: directory
 
-- name: unarchive OTT KIT
+- name: Install unzip
+  yum:
+    name: unzip
+
+- name: Unarchive OTT KIT
   unarchive:
     src: http://172.31.67.7/onemmc/OneMMC_13.5.0_Eng_Kit_GA_08-08-18-Released.zip
     dest: /seachange/local
