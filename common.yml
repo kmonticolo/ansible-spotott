@@ -4,5 +4,5 @@
   become: True
 
   roles:
-- { role: "nickjj.user", tags: "user", user_name: "seachange", user_groups: [ wheel, seachange ] }
-- { role: "geerlingguy.ntp", tags: "ntp" }
+    - { role: "nickjj.user", tags: "user", user_name: "seachange", user_groups: [ wheel, seachange ] }
+    - { role: "geerlingguy.ntp", tags: "ntp" }
