@@ -9,6 +9,14 @@
 #   import_playbook: create_inventory.yml
 #   tags: inventory
 
+- name: Create user and set NTP
+  hosts: all
+  become: True
+
+  roles:
+- { role: "nickjj.user", tags: "user", user_name: "seachange", user_groups: [ wheel, seachange ] }
+- { role: "geerlingguy.ntp", tags: "ntp" }
+
 - name: Deploy MMC
   hosts: mmc
   vars:
