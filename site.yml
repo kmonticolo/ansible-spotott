@@ -8,3 +8,13 @@
 - name: create inventory
   import_playbook: create_inventory.yml
   tags: inventory
+
+- name: Deploy MMC
+  hosts: mmc
+  vars:
+    - linux_password: SeaChange
+  gather_facts: true
+  vars_files:
+    - mmc/vars/main.yml
+  roles:
+    - { role: mmc, tags: mmc }

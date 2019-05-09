@@ -1,0 +1,13 @@
+---
+# tasks file for mmc
+
+# add seachange user
+
+# create /seachange/local folder
+- name: create folder
+  file:
+    path: /seachange/local
+    owner: root
+    state: directory
+
+    
