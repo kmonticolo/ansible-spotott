@@ -6,3 +6,8 @@
   roles:
     - { role: "nickjj.user", tags: "user", user_name: "seachange", user_groups: [ wheel, seachange ] }
     - { role: "geerlingguy.ntp", tags: "ntp" }
+
+  tasks:
+    user:
+      name: seachange
+      password: $6$OKPRotSb$jBkJcLdnWYkihdnOsYdQ.vHoN7I4EVWWWfE1z1cvAr0AwElA.f5VE1343Xc.AtfdNOTca2JQ3aYYsiwuEzznf.
