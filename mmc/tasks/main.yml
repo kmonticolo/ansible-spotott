@@ -14,5 +14,5 @@
   unarchive:
     src: http://172.31.67.7/onemmc/OneMMC_13.5.0_Eng_Kit_GA_08-08-18-Released.zip
     dest: /seachange/local
-
+    remote_src: yes
     
